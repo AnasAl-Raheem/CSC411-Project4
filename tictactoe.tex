@@ -1,0 +1,704 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming/Coding Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+% This template uses a Perl script as an example snippet of code, most other
+% languages are also usable. Configure them in the "CODE INCLUSION 
+% CONFIGURATION" section.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{subcaption}
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{amsmath}
+\usepackage{sverb}
+\usepackage{tabto}
+
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{\hmwkTitle} % Top center head
+%\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{Perl} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=Perl, % Use Perl in this example
+        frame=single, % Single frame around code
+        basicstyle=\small\ttfamily, % Use small true type font
+        keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
+        keywordstyle=[2]\color{Purple}, % Perl function arguments purple
+        keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+        identifierstyle=, % Nothing special about identifiers                                         
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+        stringstyle=\color{Purple}, % Strings are purple
+        showstringspaces=false, % Don't put marks in string spaces
+        tabsize=5, % 5 spaces per tab
+        %
+        % Put standard Perl functions not included in the default language here
+        morekeywords={rand},
+        %
+        % Put Perl function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        % Put user defined functions here
+        morekeywords=[3]{test},
+       	%
+        morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+        numbers=left, % Line numbers on left
+        firstnumber=1, % Line numbers start with line 1
+        numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+        stepnumber=5 % Line numbers go in steps of 5
+}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
+\newcommand{\perlscript}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.pl}
+\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+%\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+\setcounter{homeworkProblemCounter}{0}
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Part \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{PROJECT 4} % Assignment title
+\newcommand{\hmwkDueDate}{Monday,\ April\ 2,\ 2018} % Due date
+\newcommand{\hmwkClass}{CSC411/2525} % Course/class
+\newcommand{\hmwkClassTime}{L0101} % Class/lecture time
+\newcommand{\hmwkAuthorName}{JooHyung Kim, Anas S. Alraheem} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass\\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+\vspace{0.1in}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+%\date{} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+\clearpage
+%----------------------------------------------------------------------------------------
+%	Part 1
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+\begin{homeworkProblem}
+The 3x3 grid is represented as a 1x9 dimension vector. \newline
+The attribute \textit{done} represents the state of the game, if it is finished or not. \newline
+The attribute \textit{turn} represents whose turn it is currently, either player 1 (x) or 2 (o).
+
+\begin{lstlisting}[language=python]
+env.render()
+...
+...
+...
+====
+
+env.step(1)
+Out[104]: (array([0, 1, 0, 0, 0, 0, 0, 0, 0]), 'valid', False)
+env.render()
+.x.
+...
+...
+====
+
+env.step(0)
+Out[106]: (array([2, 1, 0, 0, 0, 0, 0, 0, 0]), 'valid', False)
+env.render()
+ox.
+...
+...
+====
+
+env.step(4)
+Out[108]: (array([2, 1, 0, 0, 1, 0, 0, 0, 0]), 'valid', False)
+env.render()
+ox.
+.x.
+...
+====
+
+env.step(5)
+Out[110]: (array([2, 1, 0, 0, 1, 2, 0, 0, 0]), 'valid', False)
+env.render()
+ox.
+.xo
+...
+====
+
+env.step(7)
+Out[111]: (array([2, 1, 0, 0, 1, 2, 0, 1, 0]), 'win', True)
+env.render()
+ox.
+.xo
+.x.
+====
+
+# Game is finished.
+\end{lstlisting}
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+%	Part 2
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+
+\textbf{a)}\newline
+Implementation of Policy class.\newline
+policy is a neural network with one hidden layer.
+\begin{lstlisting}[language=python]
+class Policy(nn.Module):
+    """
+    The Tic-Tac-Toe Policy
+    """
+    def __init__(self, input_size=27, hidden_size=256, output_size=9):
+        super(Policy, self).__init__()
+        self.input = nn.Linear(input_size, hidden_size)
+        self.output = nn.Linear(hidden_size, output_size)
+
+    def forward(self, x):
+        x = F.relu(self.input(x))
+        return F.softmax(self.output(x))
+\end{lstlisting}
+
+\textbf{b)} \newline
+Outputs produced to see what the state (27-dimensional vector) means.
+\begin{lstlisting}[language=python]
+state = torch.from_numpy(state).long().unsqueeze(0)
+state = torch.zeros(3,9).scatter_(0,state,1).view(1,27)
+state
+Out[38]: 
+Columns 0 to 12 
+    1     1     1     1     1     1     1     1     1     0     0     0     0
+Columns 13 to 25 
+    0     0     0     0     0     0     0     0     0     0     0     0     0
+Columns 26 to 26 
+    0
+[torch.FloatTensor of size 1x27]
+
+state, status, done = env.step(1)
+env.render()
+.x.
+...
+...
+====
+state
+Out[131]: 
+Columns 0 to 12 
+    1     0     1     1     1     1     1     1     1     0     1     0     0
+Columns 13 to 25 
+    0     0     0     0     0     0     0     0     0     0     0     0     0
+Columns 26 to 26 
+    0
+[torch.FloatTensor of size 1x27]
+
+state, status, done = env.step(7)
+env.render()
+.x.
+...
+.o.
+====
+state
+Out[135]: 
+Columns 0 to 12 
+    1     0     1     1     1     1     1     0     1     0     1     0     0
+Columns 13 to 25 
+    0     0     0     0     0     0     0     0     0     0     0     0     1
+Columns 26 to 26 
+    0
+[torch.FloatTensor of size 1x27]
+\end{lstlisting}
+After running few steps of the game, and taking a look at the \textit{state} and \textit{env.render()}, we have concluded that: \newline
+The first 9 dimensions [0:8] of the output indicates whether the cell in the grid is empty or not.\newline
+The next set of 9 dimensions [9:17] of the output indicates which cells are occupied by x's.\newline
+The last set of 9 dimensions [18:26] of the output inidicates which cells are occupied by o's \newline \newline
+
+\textbf{c)} \newline
+Output of the policy
+\begin{lstlisting}[language=python]
+pr = policy(Variable(state))
+
+pr
+Out[142]: 
+Variable containing:
+ 0.1145  0.1305  0.1033  0.1130  0.1107  0.1141  0.0951  0.1028  0.1160
+[torch.FloatTensor of size 1x9]
+\end{lstlisting}
+
+Each value in each dimension represents how good is it to choose that cell as the next move. \newline
+This policy is stochastic.
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+%	PROBLEM 3
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+
+\textbf{a)}
+\begin{lstlisting}[language=python]
+def compute_returns(rewards, gamma=1.0):
+    """
+    Compute returns for each time step, given the rewards
+      @param rewards: list of floats, where rewards[t] is the reward
+                      obtained at time step t
+      @param gamma: the discount factor
+      @returns list of floats representing the episode's returns
+          G_t = r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} + ... 
+
+    >>> compute_returns([0,0,0,1], 1.0)
+    [1.0, 1.0, 1.0, 1.0]
+    >>> compute_returns([0,0,0,1], 0.9)
+    [0.7290000000000001, 0.81, 0.9, 1.0]
+    >>> compute_returns([0,-0.5,5,0.5,-10], 0.9)
+    [-2.5965000000000003, -2.8850000000000002, -2.6500000000000004, -8.5, -10.0]
+    """
+    G_t = []
+    for i in range(len(rewards)):
+        temp = [x * (gamma ** i) for i,x in enumerate(rewards[i:])]
+        G_t.append(np.sum(temp))
+    return G_t
+\end{lstlisting}
+\end{homeworkProblem}
+
+\textbf{b)} \newline
+When playing a full game for each episode, the game starts with random weights and uses the result of the game to determine how to change the weights. \newline
+We can not update weights in the middle of an episode because without the result of the game, we don't have a metric on how to change the weights. Changing the values of the weights based on winning the game is different when changing the values of the weights based on losing the game. Therefore, we need to perform the updates after finishing the game.
+
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 4
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+\textbf{a)}
+\begin{lstlisting}[language=python]
+def get_reward(status):
+	"""Returns a numeric given an environment status."""
+    return {
+            Environment.STATUS_VALID_MOVE  : 1,
+            Environment.STATUS_INVALID_MOVE: -5,
+            Environment.STATUS_WIN         : 10,
+            Environment.STATUS_TIE         : -3,
+            Environment.STATUS_LOSE        : -3
+    }[status]
+\end{lstlisting}
+
+\textbf{b)} \newline
+% Explain the choices that you made in 4(a). Are there positive rewards? Negative rewards? Zero rewards? Why? Explain how you chose the magnitude of the positive and negative rewards.
+
+The positive rewards are STATUS\_VALID\_MOVE and STATUS\_WIN. \newline
+The negative rewards are STATUS\_INVALID\_MOVE, STATUS\_TIE, STATUS\_LOSE \newline
+We have no 0-value rewards. \newline
+
+We have chosen these values after experimenting with other numbers. However, these values produced the best results for our program. We decided to reward wins/valid moves as positives way more than the negative values of losses/ties/invalid moves. The magnitudes of the values were chosen after trial and error and the chosen values fit into our plots nicely. Moreover, when we tried to deviate from our  optimal reward values even by 1 digit, it produced worse results. 
+
+\end{homeworkProblem}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 5
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+\textbf{a)} \newline
+We have changed the \textbf{number of hidden units from 64 to 256} and \textbf{gamma = 0.5} because we got the best result from it, as high as 94.7\% win rates towards the end of 50,000 episodes. \newline \newline
+
+\underline{Experimented Values (average win rate over 50,000 episodes):} \newline
+gamma = 0.91 with hidden units = 256 produced 77\% \newline
+gamma = 0.75 with hidden units = 256 produced: 94.3\% (also produced inconsistent plots) \newline
+When trying other hidden unit values with gamma=0.5, it produced worse results.
+\newline \newline
+\textit{Note: After we completed our work we noticed the prof mentioned on piazza (Post @812) the first move choice our agent makes does not make much sense so we tried to experiment with different gamma values. That is why we experimented with other values (0.75 and 0.9) but we decided to keep our current results because the graphs produced were confusing and inconsistent (many low average returns in the middle of training, around episodes 30,000 and 40,000). We also thought of calculating the average of total wins throughout training and noticed it is best for gamma = 0.75.}
+
+% \textit{Note*: We experimented with other gamma values because the professor thought the behavior was odd (https://piazza.com/class/jbcszug53kt1g9?cid=812). However, we decided to stick with our original gamma value (0.5) because it was the most consistent and produced the highest win rates in the end.}
+
+\begin{figure*}[!ht]
+  \begin{subfigure}[b]{1\textwidth}
+    \includegraphics[width=\textwidth]{part5_256_learning_curve__best_.png}
+    \caption{Training Curve: hidden units: 256, gamma=0.5}
+    \label{fig:1}
+  \end{subfigure}
+\end{figure*}
+
+
+\clearpage
+\textbf{b)}
+Experiment with different number of hidden units [32,64,128,256,400]
+\begin{figure*}[!ht]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{part5_32_learning_curve.png}
+    \caption{Training Curve: hidden units: 32}
+    \label{fig:1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{part5_64_learning_curve.png}
+    \caption{Training Curve: hidden units: 64}
+    \label{fig:2}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{part5_128_learning_curve.png}
+    \caption{Training Curve: hidden units: 128}
+    \label{fig:3}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{part5_256_learning_curve__best_.png}
+    \caption{Training Curve: hidden units: 256}
+    \label{fig:4}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{part5_400_learning_curve__worst_.png}
+    \caption{Training Curve: hidden units: 400}
+    \label{fig:3}
+  \end{subfigure}	
+\end{figure*}
+
+\textbf{\underline{Total Number of Invalids for each experiment:}} \newline
+32: Total Invalid: 0.0484023555423 \newline
+64: Total Invalid: 0.0398413971409 \newline
+128: Total Invalid: 0.0337253535768 \newline
+256: Total Invalid: 0.0328525005944 \newline
+400: Total Invalid: 0.267968033307 \newline
+\textbf{hidden units = 256 produced the best results.} \newline
+
+\textbf{(c)}
+At around 15000\textsuperscript{th} episode, the percentage of invalid moves made is around 0.4\% 
+\begin{lstlisting}
+Episode 15000     Invalid: 0.00405679513185, Win: 812, tie: 64, lose:124
+\end{lstlisting}
+
+
+\textbf{d)}
+\begin{lstlisting}[language=python]
+20th game:
+.x.
+...
+.o.
+====
+.xx
+...
+oo.
+====
+xxx
+...
+oo.
+====
+
+40th game:
+.x.
+o..
+...
+====
+.xx
+o..
+..o
+====
+xxx
+o..
+..o
+====
+
+60th game:
+.x.
+..o
+...
+====
+.xx
+.oo
+...
+====
+xxx
+.oo
+...
+====
+
+80th game:
+.xo
+...
+...
+====
+.xo
+..x
+o..
+====
+oxo
+.xx
+o..
+====
+oxo
+.xx
+ox.
+====
+
+100th game:
+.x.
+o..
+...
+====
+.xx
+oo.
+...
+====
+xxx
+oo.
+...
+====
+
+{'win': 92, 'inv': 0, 'valid': 226, 'done': 0, 'lose': 8, 'tie': 0}
+\end{lstlisting}
+One of the strategies that our agent learned is to play the first move by placing the x on the top middle cell. \newline
+Lastly, our agent has learned to win!
+
+\end{homeworkProblem}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 6
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+
+We obtained the  win / lose / tie rates while running our train function. We obtained the rates every 1000\textsuperscript{th} episodes and created a graph with it. \newline
+We changed the hyperparameters in our train function, hidden unit=256 and gamma=0.5.
+
+\begin{figure*}[!ht]
+  \begin{subfigure}[b]{1\textwidth}
+    \includegraphics[width=\textwidth]{part6_rates_plot.png}
+    \caption{ win / lose / tie rates}
+    \label{fig:1}
+  \end{subfigure}
+\end{figure*}
+
+\textbf{Conclusion:} For the final 1000 episodes, wins: 947, loses: 39, ties: 14\\
+We can see that the rates fluctuated throughout the training, as our agent was exploring new moves aside from the optimal learned moves at that time.\\ In the end, as evident, the overall win rates improved and the lose, tie rates decreased. 
+
+\end{homeworkProblem}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 7
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+\begin{lstlisting}[language=python]
+# 0th episode
+[
+ 0.1243  0.0912  0.1001  0.0982  0.1174  0.1420  0.1102  0.1106  0.1061
+[torch.FloatTensor of size 1x9]
+, 
+
+# 10000th episode
+Columns 0 to 5 
+ 2.1241e-04  1.4382e-05  1.3317e-04  1.3351e-03  9.9746e-01  4.0962e-04
+
+Columns 6 to 8 
+ 1.7974e-04  4.6109e-09  2.5092e-04
+[torch.FloatTensor of size 1x9]
+, 
+
+# 20000th episode
+Columns 0 to 5 
+ 1.1363e-06  2.5312e-08  8.3705e-05  9.9973e-01  1.8400e-04  4.2848e-07
+
+Columns 6 to 8 
+ 2.5664e-09  1.0232e-11  3.6978e-08
+[torch.FloatTensor of size 1x9]
+, 
+
+# 30000th episode
+Columns 0 to 5 
+ 3.7690e-06  9.9970e-01  2.9216e-04  1.2763e-07  4.8369e-09  3.0131e-11
+
+Columns 6 to 8 
+ 4.5049e-11  2.9596e-14  9.1078e-12
+[torch.FloatTensor of size 1x9]
+, 
+
+# 40000th episode
+Columns 0 to 5 
+ 9.9978e-01  2.0135e-04  1.7210e-05  4.4637e-09  7.4169e-12  9.3531e-09
+
+Columns 6 to 8 
+ 7.0566e-13  1.8760e-14  2.5324e-13
+[torch.FloatTensor of size 1x9]
+, 
+
+# 50000th episode
+Columns 0 to 5 
+ 2.5837e-11  1.0000e+00  1.0941e-06  3.5961e-08  5.7096e-11  4.0071e-10
+
+Columns 6 to 8 
+ 1.2390e-14  2.0452e-15  6.5686e-14
+[torch.FloatTensor of size 1x9]
+]
+\end{lstlisting}
+We see that our model learned that the best first move is the top meddle cell. The distribution does not makes much sense because as logical players the best first moves are the center or the corners. However the model might have found that the top middle cell resulted in a high win rate against the random agent and thus that cell became the default first move. \newline
+
+% We see that our model learned that the best first move is the top meddle cell. The distribution makes sense because the middle top cell (column 1) has the highest value by the end of the 50,000\textsuperscript{th} episode. \newline
+
+We can see the value of the second cell fluctuating during the training. In the 0\textsuperscript{th} episode we see that all the cells have similar values, which makes sense as the training didn't start. As more episodes finish, the second cell value fluctuates between being the highest value and one of the lowest, which corresponds to the agent trying different strategies. Towards the end of the training, the 50,000\textsuperscript{th} episode shows that the second cell has the highest value.
+
+
+\end{homeworkProblem}
+\clearpage
+
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 8
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+
+One of the mistakes our agent is making is that, the first move is always the same (placing x in the middle top cell). As a human, and through google search, we believe the best first move you can make is to place it in the middle cell. And our agent has failed to learn that. \newline
+
+On certain games, when blocking the other player's move is the best move. It does not do that and the distribution value on the optimal cell is lower than other empty cells. \newline
+
+\textbf{Example game:}
+\begin{lstlisting}[language=python]
+First moves:
+.xo
+...
+...
+====
+
+Grid Cell Probability Distribution:
+Columns 0 to 5 
+ 2.6477e-03  1.0620e-03  4.8685e-06  1.9606e-02  2.0047e-02  9.5508e-01
+Columns 6 to 8 
+ 4.5125e-04  1.0973e-03  1.9568e-09
+.xo
+.ox		<-- The agent 'x' makes a useless move.
+...		
+====
+
+Grid Cell Probability Distribution:
+Columns 0 to 5 
+ 5.3413e-03  1.5633e-04  7.9803e-05  9.3969e-01  9.2121e-08  2.0375e-07
+Columns 6 to 8 
+ 5.3717e-02  2.8134e-04  7.3367e-04
+.xo
+xox
+.o.		<-- The optimal move for 'x' would be the bottom left cell to block 'o'.
+====
+
+Grid Cell Probability Distribution:
+Columns 0 to 5 
+ 6.4252e-03  5.4179e-05  8.3312e-05  4.1068e-06  2.5790e-07  4.1198e-05
+Columns 6 to 8 
+ 4.4863e-01  9.7968e-10  5.4477e-01
+[torch.FloatTensor of size 1x9]
+.xo
+xox
+xoo
+====
+\end{lstlisting}
+\end{homeworkProblem}
+\clearpage
+
+\end{document} 
